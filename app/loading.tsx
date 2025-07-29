@@ -1,0 +1,1 @@
+export default function RootLoading() { return <p>Loading, please wait...</p>; }
