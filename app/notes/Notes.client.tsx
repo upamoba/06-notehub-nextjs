@@ -41,8 +41,8 @@ const totalPages = data?.meta?.totalPages ?? 1;
       {isLoading && <LoadingIndicator />}
       {isError && <ErrorMessage />}
 
-      {!isLoading && data?.data.length ? (
-        <NoteList notes={data.data} />
+      {!isLoading && (data?.data?.length ?? 0) > 0 ? (
+        <NoteList notes={data!.data} />
       ) : (
         !isLoading && <EmptyState message="No notes found." />
       )}
