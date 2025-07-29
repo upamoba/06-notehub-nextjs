@@ -6,7 +6,10 @@ import styles from './NoteList.module.css';
 interface Props { notes: Note[]; }
 const NoteList: FC<Props> = ({ notes }) => {
   const qc = useQueryClient();
-  const mut = useMutation((id: number) => deleteNote(id), { onSuccess: () => qc.invalidateQueries(['notes']) });
+  const mut = useMutation({
+    mutationFn: (id: number) => deleteNote(id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['notes'] })
+  });
   return (
     <ul className={styles.list}>
       {notes.map(n => (
