@@ -3,12 +3,14 @@ import { fetchNoteById } from '../../../lib/api';
 import NoteDetailsClient from './NoteDetails.client';
 import { TanStackProvider } from '../../../components/TanStackProvider/TanStackProvider';
 
-export default async function NoteDetailsPage({
-  params,
-}: {
+type PageProps = {
   params: Promise<{ id: string }>;
-}) {
-  const noteId = Number((await params).id);
+};
+
+export default async function NoteDetailsPage({ params }: PageProps) {
+  const { id } = await params;
+  const noteId = Number(id);
+
   const qc = new QueryClient();
   await qc.prefetchQuery({
     queryKey: ['note', noteId],
@@ -22,4 +24,23 @@ export default async function NoteDetailsPage({
     </TanStackProvider>
   );
 }
+// export default async function NoteDetailsPage({
+//   params,
+// }: {
+//   params: Promise<{ id: string }>;
+// }) {
+//   const noteId = Number((await params).id);
+//   const qc = new QueryClient();
+//   await qc.prefetchQuery({
+//     queryKey: ['note', noteId],
+//     queryFn: () => fetchNoteById(noteId),
+//   });
+//   const dehydratedState = dehydrate(qc);
+
+//   return (
+//     <TanStackProvider dehydratedState={dehydratedState}>
+//       <NoteDetailsClient noteId={noteId} />
+//     </TanStackProvider>
+//   );
+// }
 

@@ -12,6 +12,7 @@ import NoteForm from '../../components/NoteForm/NoteForm';
 import {LoadingIndicator} from '../../components/LoadingIndicator/LoadingIndicator';
 import {ErrorMessage} from '../../components/ErrorMessage/ErrorMessage';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
+import styles from './NotesPage.module.css';
 
 
 export default function NotesClient( ) {
@@ -24,18 +25,24 @@ export default function NotesClient( ) {
     queryKey: ['notes', page, debouncedSearch],
     queryFn: () => fetchNotes(page, 12, debouncedSearch),
     placeholderData: keepPreviousData,
+    
   });
 
 const totalPages = data?.meta?.totalPages ?? 1;
  
   return (
-    <div>
-      <header>
+    <div className={styles.app}>
+      <header className={styles.toolbar}>
         <SearchBox value={search} onChange={setSearch} />
         {totalPages > 1 && (
-          <Pagination pageCount={data?.meta.totalPages ?? 1} currentPage={page} onPageChange={setPage} />
+          <Pagination 
+          pageCount={data?.meta.totalPages ?? 1} 
+          currentPage={page} 
+          onPageChange={setPage} />
         )}
-        <button onClick={() => setIsModalOpen(true)}>Create note +</button>
+        <button onClick={() => setIsModalOpen(true)} className={styles.button}>
+          Create Note+
+        </button>
       </header>
 
       {isLoading && <LoadingIndicator />}

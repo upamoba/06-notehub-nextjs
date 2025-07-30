@@ -18,7 +18,10 @@ const NoteList: FC<Props> = ({ notes }) => {
           <p className={styles.content}>{n.content}</p>
           <div className={styles.footer}>
             <span className={styles.tag}>{n.tag}</span>
-            <button className={styles.button} onClick={() => mut.mutate(n.id)}>Delete</button>
+            <button 
+            className={styles.button} 
+            onClick={() => mut.mutate(n.id)}>Delete</button>
+          
           </div>
         </li>
       ))}
