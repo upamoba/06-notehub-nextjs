@@ -7,7 +7,7 @@ import { fetchNotes } from '../../lib/api';
 import SearchBox from '../../components/SearchBox/Searchbox';
 import Pagination from '../../components/Pagination/Pagination';
 import NoteList from '../../components/NoteList/NoteList';
-import Modal from '../../components/NoteModal/NoteModal';
+import Modal from '../../components/Modal/Modal';
 import NoteForm from '../../components/NoteForm/NoteForm';
 import {LoadingIndicator} from '../../components/LoadingIndicator/LoadingIndicator';
 import {ErrorMessage} from '../../components/ErrorMessage/ErrorMessage';
