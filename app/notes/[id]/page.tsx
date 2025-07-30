@@ -6,9 +6,9 @@ import { TanStackProvider } from '../../../components/TanStackProvider/TanStackP
 export default async function NoteDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const noteId = Number(params.id);
+  const noteId = Number((await params).id);
   const qc = new QueryClient();
   await qc.prefetchQuery({
     queryKey: ['note', noteId],
