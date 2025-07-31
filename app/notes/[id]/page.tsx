@@ -4,12 +4,12 @@ import NoteDetailsClient from './NoteDetails.client';
 import { TanStackProvider } from '../../../components/TanStackProvider/TanStackProvider';
 
 type PageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function NoteDetailsPage({ params }: PageProps) {
-  const noteId = params.id;
-
+  // const noteId = (await params).id;
+ const { id: noteId } = await params;
   const qc = new QueryClient();
   await qc.prefetchQuery({
     queryKey: ['note', noteId],
