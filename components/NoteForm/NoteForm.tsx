@@ -4,8 +4,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import type { NoteTag } from '../../types/note';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createNote } from '../../lib/api';
+import { createNote,type CreateNotePayload } from '../../lib/api';
 import styles from './NoteForm.module.css';
+import type { Note } from '../../types/note';
 
 
 
@@ -22,14 +23,22 @@ const schema = Yup.object({
 });
 const NoteForm: FC<Props> = ({ onClose }) => {
   const qc = useQueryClient();
-  const mut = useMutation({ 
-    mutationFn: (v: Values) => createNote(v), onSuccess: () => { 
-      qc.invalidateQueries({ queryKey: ['notes'] }); onClose(); } });
+  
+  const mut = useMutation<Note, Error, CreateNotePayload>({
+    mutationFn: (v: Values) => createNote(v),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['notes'],
+        exact: false,
+       });
+      onClose();
+    },
+  });
   return (
-    <Formik<Values> 
-    initialValues={{ title: '', content: '', tag: 'Todo', }} 
-    validationSchema={schema} 
-    onSubmit={(v,{resetForm})=>{mut.mutate(v);
+    <Formik<Values>
+      initialValues={{ title: '', content: '', tag: 'Todo' }}
+      validationSchema={schema}
+      onSubmit={(v, { resetForm }) => {
+      mut.mutate(v);
     resetForm();}}>
       {()=> (
         <Form className={styles.form}>

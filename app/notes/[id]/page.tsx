@@ -24,23 +24,3 @@ export default async function NoteDetailsPage({ params }: PageProps) {
     </TanStackProvider>
   );
 }
-// export default async function NoteDetailsPage({
-//   params,
-// }: {
-//   params: Promise<{ id: string }>;
-// }) {
-//   const noteId = Number((await params).id);
-//   const qc = new QueryClient();
-//   await qc.prefetchQuery({
-//     queryKey: ['note', noteId],
-//     queryFn: () => fetchNoteById(noteId),
-//   });
-//   const dehydratedState = dehydrate(qc);
-
-//   return (
-//     <TanStackProvider dehydratedState={dehydratedState}>
-//       <NoteDetailsClient noteId={noteId} />
-//     </TanStackProvider>
-//   );
-// }
-
