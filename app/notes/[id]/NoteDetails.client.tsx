@@ -6,7 +6,7 @@ import { fetchNoteById } from '../../../lib/api';
 import styles from './NoteDetails.module.css';
 
 interface NoteDetailsClientProps {
-  noteId: number;
+  noteId: string;
 }
 
 export default function NoteDetailsClient({ noteId }: NoteDetailsClientProps) {

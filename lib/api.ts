@@ -18,8 +18,14 @@ export async function fetchNotes(
   perPage: number,
   search?: string
 ): Promise<FetchNotesResponse> {
-  const params: { page: number; perPage: number; search?: string } = { page, perPage };
-  if (search) params.search = search;
+  const params: { 
+    page: number; 
+    perPage: number; 
+    search?: string } = { 
+      page, 
+      perPage,
+      search };
+
   const { data } = await API.get<FetchNotesResponse>('/notes', { params });
   return data;
 }
@@ -36,12 +42,12 @@ export async function createNote(
   return data;
 }
 
-export async function deleteNote(id: number): Promise<Note> {
+export async function deleteNote(id: string): Promise<Note> {
   const { data } = await API.delete<Note>(`/notes/${id}`);
   return data;
 }
 
-export async function fetchNoteById(id: number): Promise<Note> {
+export async function fetchNoteById(id: string): Promise<Note> {
   const { data } = await API.get<Note>(`/notes/${id}`);
   return data;
 }

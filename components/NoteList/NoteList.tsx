@@ -3,12 +3,17 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteNote } from '../../lib/api';
 import type { Note } from '../../types/note';
 import styles from './NoteList.module.css';
+
+
 interface Props { notes: Note[]; }
 const NoteList: FC<Props> = ({ notes }) => {
   const qc = useQueryClient();
-  const mut = useMutation({
-    mutationFn: (id: number) => deleteNote(id),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['notes'] })
+  const mut = useMutation<Note, Error, string>({
+    mutationFn: (id) => deleteNote(id),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['notes'],exact: false }),
+    onError: (error) => {
+      console.error('Error deleting note:', error);
+    },
   });
   return (
     <ul className={styles.list}>
