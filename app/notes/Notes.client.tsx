@@ -22,23 +22,25 @@ export default function NotesClient( ) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading, isError } = useQuery<FetchNotesResponse, Error>({
-    queryKey: ['notes', page, debouncedSearch],
-    queryFn: () => fetchNotes(page, 12, debouncedSearch),
+    queryKey: ['notes', { page, perPage: 12, search: debouncedSearch }]
+,
+    queryFn: () => fetchNotes({ page, perPage: 12, search: debouncedSearch }),
     placeholderData: keepPreviousData,
     
   });
 
-const totalPages = data?.meta?.totalPages ?? 1;
+const totalPages = data?.total_pages ?? 1;
  
   return (
     <div className={styles.app}>
       <header className={styles.toolbar}>
         <SearchBox value={search} onChange={setSearch} />
         {totalPages > 1 && (
-          <Pagination 
-          pageCount={data?.meta.totalPages ?? 1} 
-          currentPage={page} 
-          onPageChange={setPage} />
+          <Pagination
+            pageCount={totalPages}
+            currentPage={page}
+            onPageChange={setPage}
+          />
         )}
         <button onClick={() => setIsModalOpen(true)} className={styles.button}>
           Create Note+

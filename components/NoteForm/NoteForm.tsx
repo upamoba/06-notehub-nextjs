@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import type { NoteTag } from '../../types/note';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createNote,type CreateNotePayload } from '../../lib/api';
+import { createNote} from '../../lib/api';
 import styles from './NoteForm.module.css';
 import type { Note } from '../../types/note';
 
@@ -23,8 +23,8 @@ const schema = Yup.object({
 });
 const NoteForm: FC<Props> = ({ onClose }) => {
   const qc = useQueryClient();
-  
-  const mut = useMutation<Note, Error, CreateNotePayload>({
+
+  const mut = useMutation<Note, Error, Values>({
     mutationFn: (v: Values) => createNote(v),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['notes'],

@@ -6,6 +6,7 @@ import styles from './NoteList.module.css';
 
 
 interface Props { notes: Note[]; }
+
 const NoteList: FC<Props> = ({ notes }) => {
   const qc = useQueryClient();
   const mut = useMutation<Note, Error, string>({
