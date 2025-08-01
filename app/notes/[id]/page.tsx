@@ -8,12 +8,11 @@ type PageProps = {
 };
 
 export default async function NoteDetailsPage({ params }: PageProps) {
-  // const noteId = (await params).id;
  const { id: noteId } = await params;
   const qc = new QueryClient();
   await qc.prefetchQuery({
     queryKey: ['note', noteId],
-    queryFn: () => fetchNoteById(noteId),
+    queryFn: () => fetchNoteById(noteId)
   });
   const dehydratedState = dehydrate(qc);
 
