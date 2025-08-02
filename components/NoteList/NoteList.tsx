@@ -6,11 +6,11 @@ import type { Note } from '../../types/note';
 import styles from './NoteList.module.css';
 
 
-interface Props { notes: Note[]; }
+interface NoteListProps { 
+  notes: Note[]; 
+}
 
-
-
-const NoteList: FC<Props> = ({ notes }) => {
+const NoteList: FC<NoteListProps> = ({ notes }) => {
   const qc = useQueryClient();
   const mut = useMutation<Note, Error, string>({
     mutationFn: (id) => deleteNote(id),
@@ -27,8 +27,8 @@ const NoteList: FC<Props> = ({ notes }) => {
           <p className={styles.content}>{n.content}</p>
           <div className={styles.footer}>
             <span className={styles.tag}>{n.tag}</span>
-              <Link href={`/notes/${n.id}`}>
-              <a className={styles.link}>View details</a>
+              <Link href={`/notes/${n.id}`} className={styles.link}>
+              View details
             </Link>
             <button
               className={styles.button}
