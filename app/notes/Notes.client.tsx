@@ -4,7 +4,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 import type { FetchNotesResponse } from '../../lib/api';
 import { fetchNotes } from '../../lib/api';
-// import SearchBox from '../../components/SearchBox';
+import SearchBox from '../../components/SearchBox/Searchbox';
 import Pagination from '../../components/Pagination/Pagination';
 import NoteList from '../../components/NoteList/NoteList';
 import Modal from '../../components/Modal/Modal';
