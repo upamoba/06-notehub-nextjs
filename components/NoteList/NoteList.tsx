@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import Link from 'next/link';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteNote } from '../../lib/api';
 import type { Note } from '../../types/note';
@@ -6,6 +7,8 @@ import styles from './NoteList.module.css';
 
 
 interface Props { notes: Note[]; }
+
+
 
 const NoteList: FC<Props> = ({ notes }) => {
   const qc = useQueryClient();
@@ -24,9 +27,15 @@ const NoteList: FC<Props> = ({ notes }) => {
           <p className={styles.content}>{n.content}</p>
           <div className={styles.footer}>
             <span className={styles.tag}>{n.tag}</span>
-            <button 
-            className={styles.button} 
-            onClick={() => mut.mutate(n.id)}>Delete</button>
+              <Link href={`/notes/${n.id}`}>
+              <a className={styles.link}>View details</a>
+            </Link>
+            <button
+              className={styles.button}
+              onClick={() => mut.mutate(n.id)}
+            >
+              Delete
+            </button>
           
           </div>
         </li>
